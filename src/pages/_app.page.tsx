@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { initializeFirebaseApp } from '@src/lib/firebase/initializeFirebase'
 import { theme } from '@src/lib/chakra/theme'
-import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 import type { ReactElement, ReactNode } from 'react'
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next/types'
@@ -21,9 +20,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <BaseLayout>
-        {getLayout(<Component {...pageProps} />, pageProps)}
-      </BaseLayout>
+      {getLayout(<Component {...pageProps} />, pageProps)}
     </ChakraProvider>
   )
 }
