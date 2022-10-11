@@ -2,7 +2,8 @@
 
 ## Firebaseの初期化
 firebaseのappを初期化する関数を作成   
-`!getApps().length ? initializeApp(firebaseConfig) : getApp()`ですでに初期化されている場合は初期化しないようにする
+`!getApps().length ? initializeApp(firebaseConfig) : getApp()`ですでに初期化されている場合は初期化しないようにする   
+https://firebase.google.com/docs/web/setup?hl=ja#add-sdks-initialize
 
 ```ts
 import { getApp, getApps, initializeApp } from 'firebase/app'
@@ -38,6 +39,7 @@ const App = () => {
 ## 認証周り
 
 ### サインアップ
+https://firebase.google.com/docs/auth/web/password-auth?hl=ja#create_a_password-based_account
 ```tsx
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
@@ -55,6 +57,7 @@ const signUp = async () => {
 ```
 
 ### サインイン
+https://firebase.google.com/docs/auth/web/password-auth?hl=ja#sign_in_a_user_with_an_email_address_and_password
 ```tsx
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
@@ -72,6 +75,7 @@ const signIn = async () => {
 ```
 
 ### サインアウト
+https://firebase.google.com/docs/auth/web/password-auth?hl=ja#next_steps
 ```tsx
 import { getAuth, signOut } from 'firebase/auth'
 
@@ -88,6 +92,7 @@ const signOut = async () => {
 ```
 
 ### 認証状態取得
+https://firebase.google.com/docs/auth/web/manage-users?hl=ja#get_the_currently_signed-in_user
 ```tsx
 import { useEffect } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
