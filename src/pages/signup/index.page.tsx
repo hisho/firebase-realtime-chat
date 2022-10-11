@@ -2,8 +2,10 @@ import { Button, Center, chakra, Container, Heading } from '@chakra-ui/react'
 import { useSignUpForm } from '@src/feature/auth/component/SignUpForm/useSignUpForm'
 import { SignUpForm } from '@src/feature/auth/component/SignUpForm/SignUpForm'
 import { Spacer } from '@src/component/Spacer/Spacer'
+import type { NextPageWithLayout } from '@src/pages/_app.page'
+import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 
-const Page = () => {
+const Page: NextPageWithLayout = () => {
   const { form, handleSignUp, isLoading } = useSignUpForm()
   const { handleSubmit } = form
 
@@ -24,6 +26,10 @@ const Page = () => {
       </Center>
     </Container>
   )
+}
+
+Page.getLayout = (page) => {
+  return <BaseLayout>{page}</BaseLayout>
 }
 
 export default Page

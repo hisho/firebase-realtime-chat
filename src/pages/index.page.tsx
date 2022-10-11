@@ -1,7 +1,12 @@
-import type { NextPage } from 'next'
+import type { NextPageWithLayout } from '@src/pages/_app.page'
+import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 
-const Home: NextPage = () => {
-  return <div>ss</div>
+const Page: NextPageWithLayout = () => {
+  return <div>saaaas</div>
 }
 
-export default Home
+Page.getLayout = (page) => {
+  return <BaseLayout>{page}</BaseLayout>
+}
+
+export default Page
