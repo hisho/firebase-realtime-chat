@@ -33,6 +33,9 @@ export const Footer = () => {
           <Navigate href={(path) => path.signup.$url()}>
             <Link>新規会員登録</Link>
           </Navigate>
+          <Navigate href={(path) => path.signin.$url()}>
+            <Link>ログイン</Link>
+          </Navigate>
         </Flex>
       </Container>
     </chakra.footer>
