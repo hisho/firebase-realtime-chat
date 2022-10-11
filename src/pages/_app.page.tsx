@@ -3,7 +3,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { initializeFirebaseApp } from '@src/lib/firebase/initializeFirebase'
 
 initializeFirebaseApp()
-function MyApp({ Component, pageProps }: AppProps) {
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider>
       <Component {...pageProps} />
