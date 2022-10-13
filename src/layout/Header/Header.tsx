@@ -55,6 +55,9 @@ export const Header = () => {
                 />
               </MenuButton>
               <MenuList py={0}>
+                <Navigate href={(path) => path.account.$url()}>
+                  <MenuItem as={'a'}>アカウント</MenuItem>
+                </Navigate>
                 <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
               </MenuList>
             </Menu>
