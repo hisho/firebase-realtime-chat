@@ -107,3 +107,20 @@ const App = () => {
   return null
 }
 ```
+
+## 使用技術
+
+### UI
+- Chakra UI
+
+### Backend
+- Firebase
+
+### Form
+- React Hook Form
+
+### validation
+- Zod
+
+### test
+- Jest
