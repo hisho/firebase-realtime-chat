@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Container, Flex } from '@chakra-ui/react'
 import { Footer } from '@src/layout/Footer/Footer'
 import { Header } from '@src/layout/Header/Header'
 
@@ -11,7 +11,7 @@ export const BaseLayout = ({ children }: Props) => {
   return (
     <Flex flexDirection={'column'} h={'inherit'}>
       <Header />
-      <Box flex={1}>{children}</Box>
+      <Container flex={1}>{children}</Container>
       <Box mt={'auto'}>
         <Footer />
       </Box>

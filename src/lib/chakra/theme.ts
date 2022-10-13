@@ -13,6 +13,9 @@ export const theme = extendTheme({
       img: {
         display: 'block',
       },
+      body: {
+        backgroundColor: 'gray.50',
+      },
       'html, body': {
         height: '100%',
       },

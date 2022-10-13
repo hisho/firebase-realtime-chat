@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Container } from '@chakra-ui/react'
 import { initializeFirebaseApp } from '@src/lib/firebase/initializeFirebase'
 import { theme } from '@src/lib/chakra/theme'
 import type { ReactElement, ReactNode } from 'react'
@@ -21,9 +21,11 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <AuthProvider>
-        {getLayout(<Component {...pageProps} />, pageProps)}
-      </AuthProvider>
+      <Container h={'inherit'} bgColor={'white'} px={0}>
+        <AuthProvider>
+          {getLayout(<Component {...pageProps} />, pageProps)}
+        </AuthProvider>
+      </Container>
     </ChakraProvider>
   )
 }
