@@ -1,5 +1,7 @@
 import {
   Avatar,
+  Box,
+  Button,
   chakra,
   Container,
   Flex,
@@ -11,27 +13,52 @@ import {
 } from '@chakra-ui/react'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 import { Spacer } from '@src/component/Spacer/Spacer'
+import { useSignOut } from '@src/feature/auth/hooks/useSignOut/useSignOut'
+import { isNullish } from '@src/util/isNullish/isNullish'
+import { Navigate } from '@src/component/Navigate/Navigate'
+import { useSignInFormModal } from '@src/feature/auth/component/SignInForm/SignInFormModal'
 
 export const Header = () => {
   const user = useAuthContext()
+  const { handleSignOut } = useSignOut()
+  const { onOpen, renderSignInFormModal } = useSignInFormModal()
+
   return (
     <chakra.header py={10} bgColor={'blue.800'}>
       <Container>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
-          <Heading color={'white'}>firebase chat</Heading>
+          <Navigate href={(path) => path.$url()}>
+            <chakra.a
+              _hover={{ opacity: 0.8 }}
+              transition={'opacity 0.3s ease-out'}
+            >
+              <Heading as={'h1'} color={'white'}>
+                firebase chat
+              </Heading>
+            </chakra.a>
+          </Navigate>
           <Spacer />
-          <Menu>
-            <MenuButton>
-              <Avatar
-                name={user?.displayName ?? '未設定'}
-                flexShrink={0}
-                size={'sm'}
-              />
-            </MenuButton>
-            <MenuList py={0}>
-              <MenuItem>ログアウト</MenuItem>
-            </MenuList>
-          </Menu>
+          {isNullish(user) ? (
+            <Box>
+              <Button colorScheme={'blue'} fontSize={'12px'} onClick={onOpen}>
+                ログイン
+              </Button>
+              {renderSignInFormModal()}
+            </Box>
+          ) : (
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  name={user?.displayName ?? '未設定'}
+                  flexShrink={0}
+                  size={'sm'}
+                />
+              </MenuButton>
+              <MenuList py={0}>
+                <MenuItem onClick={handleSignOut}>ログアウト</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
       </Container>
     </chakra.header>
