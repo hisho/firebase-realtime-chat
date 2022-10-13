@@ -69,13 +69,13 @@ export const FormControl = ({
             )}
           </FormLabel>
         )}
-        {helperText && (
-          <FormHelperText ml={2} mt={0}>
-            {helperText}
-          </FormHelperText>
-        )}
       </Flex>
       <Box mt={label ? '4px' : 0}>{children}</Box>
+      {helperText && (
+        <FormHelperText fontSize={'10px'} mt={0}>
+          {helperText}
+        </FormHelperText>
+      )}
       {isInvalid && (
         <Grid gap={'4px'} mt={'6px'}>
           {errorMessages.map((errorMessage, index) => (
