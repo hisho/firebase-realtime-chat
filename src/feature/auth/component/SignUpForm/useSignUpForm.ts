@@ -8,7 +8,12 @@ import { __DEV__ } from '@src/constant/env'
 import { FirebaseError } from '@firebase/util'
 import { useLoading } from '@src/hooks/useLoading/useLoading'
 
-export const useSignUpForm = () => {
+type Args = Partial<{
+  onCompleted: () => void
+  onError: () => void
+}>
+
+export const useSignUpForm = ({ onCompleted, onError }: Args = {}) => {
   const { startLoading, stopLoading, isLoading } = useLoading()
   const form = useForm<SignUpInput>({
     defaultValues: {
@@ -24,7 +29,9 @@ export const useSignUpForm = () => {
     try {
       await signUp(input)
       reset()
+      onCompleted?.()
     } catch (e) {
+      onError?.()
       if (e instanceof FirebaseError) {
         __DEV__ && console.error(e)
       }
