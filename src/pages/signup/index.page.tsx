@@ -6,19 +6,21 @@ import type { NextPageWithLayout } from '@src/pages/_app.page'
 import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 
 const Page: NextPageWithLayout = () => {
-  const { form, handleSignUp, isLoading } = useSignUpForm()
-  const { handleSubmit } = form
+  const signUp = useSignUpForm()
 
   return (
     <Container centerContent py={10}>
       <Heading textAlign={'center'}>新規アカウント登録</Heading>
       <Spacer h={10} />
       <Center maxW={'sm'} w={'full'}>
-        <chakra.form onSubmit={handleSubmit(handleSignUp)} w={'full'}>
-          <SignUpForm form={form} />
+        <chakra.form
+          onSubmit={signUp.form.handleSubmit(signUp.handleSignUp)}
+          w={'full'}
+        >
+          <SignUpForm form={signUp.form} />
           <Spacer h={6} />
           <Center>
-            <Button isLoading={isLoading} type={'submit'}>
+            <Button isLoading={signUp.isLoading} type={'submit'}>
               登録する
             </Button>
           </Center>
