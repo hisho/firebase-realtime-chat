@@ -4,6 +4,7 @@ import { theme } from '@src/lib/chakra/theme'
 import type { ReactElement, ReactNode } from 'react'
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next/types'
+import { AuthProvider } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 
 initializeFirebaseApp()
 
@@ -20,7 +21,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <ChakraProvider theme={theme}>
-      {getLayout(<Component {...pageProps} />, pageProps)}
+      <AuthProvider>
+        {getLayout(<Component {...pageProps} />, pageProps)}
+      </AuthProvider>
     </ChakraProvider>
   )
 }
