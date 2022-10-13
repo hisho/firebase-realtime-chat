@@ -8,7 +8,7 @@ import {
 import type { User } from '@firebase/auth'
 import { getAuth, onAuthStateChanged } from '@firebase/auth'
 
-type AuthState = User | null | undefined
+export type AuthState = User | null | undefined
 const AuthContext = createContext<AuthState>(undefined)
 
 /**
