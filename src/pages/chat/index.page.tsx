@@ -17,7 +17,7 @@ import { InputControl } from '@src/component/Form/InputControl/InputControl'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 import { useLoading } from '@src/hooks/useLoading/useLoading'
 
-const ChatSchema = z.object({
+const chatSchema = z.object({
   user: z.object({
     name: z.preprocess((v) => v ?? '未設定', z.string()),
   }),
@@ -64,7 +64,7 @@ const Page: NextPageWithLayout = () => {
     startLoading()
     try {
       const newRef = await push(dbRef)
-      const data = ChatSchema.parse({
+      const data = chatSchema.parse({
         user: {
           name: user?.displayName ?? null,
         },
