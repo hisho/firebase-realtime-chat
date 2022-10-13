@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const isNull = (value: unknown): boolean => {
+export const isNull = <T extends unknown>(value: T): value is T => {
   try {
     z.null().parse(value)
     return true
