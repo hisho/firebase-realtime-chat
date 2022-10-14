@@ -22,10 +22,12 @@ const Link = forwardRef<
   )
 })
 
+export const footerHeight = '180px'
+
 export const Footer = () => {
   return (
-    <chakra.footer py={10} bgColor={'blue.800'}>
-      <Container>
+    <chakra.footer>
+      <Container h={'full'} py={6} bgColor={'blue.800'} height={footerHeight}>
         <Flex flexDirection={'column'} gap={2}>
           <Navigate href={(path) => path.$url()}>
             <Link>トップページ</Link>

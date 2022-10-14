@@ -18,14 +18,16 @@ import { isNullish } from '@src/util/isNullish/isNullish'
 import { Navigate } from '@src/component/Navigate/Navigate'
 import { useSignInFormModal } from '@src/feature/auth/component/SignInForm/SignInFormModal'
 
+export const headerHeight = '80px'
+
 export const Header = () => {
   const user = useAuthContext()
   const { handleSignOut } = useSignOut()
   const { onOpen, renderSignInFormModal } = useSignInFormModal()
 
   return (
-    <chakra.header py={10} bgColor={'blue.800'}>
-      <Container>
+    <chakra.header>
+      <Container h={'full'} py={4} bgColor={'blue.800'} height={headerHeight}>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
           <Navigate href={(path) => path.$url()}>
             <chakra.a

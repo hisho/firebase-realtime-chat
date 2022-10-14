@@ -14,15 +14,8 @@ export const theme = extendTheme({
         display: 'block',
       },
       body: {
+        height: '100%',
         backgroundColor: 'gray.50',
-      },
-      'html, body': {
-        height: '100%',
-      },
-      '#__next': {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
       },
     },
   },

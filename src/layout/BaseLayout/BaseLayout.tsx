@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
-import { Box, Container, Flex } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { Footer } from '@src/layout/Footer/Footer'
 import { Header } from '@src/layout/Header/Header'
+import { Main } from '@src/layout/Main/Main'
 
 type Props = {
   children: ReactNode
@@ -9,12 +10,10 @@ type Props = {
 
 export const BaseLayout = ({ children }: Props) => {
   return (
-    <Flex flexDirection={'column'} h={'inherit'}>
+    <Box display={'contents'}>
       <Header />
-      <Container flex={1}>{children}</Container>
-      <Box mt={'auto'}>
-        <Footer />
-      </Box>
-    </Flex>
+      <Main>{children}</Main>
+      <Footer />
+    </Box>
   )
 }
