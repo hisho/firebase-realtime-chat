@@ -1,40 +1,22 @@
-import { z } from 'zod'
 import { useForm } from '@src/lib/from/useForm/useForm'
 import { useLoading } from '@src/hooks/useLoading/useLoading'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 import { chatDatabaseRef } from '@src/feature/chat/constant/chatDatabaseRef'
-import { push, serverTimestamp, set } from '@firebase/database'
+import { push } from '@firebase/database'
 import { useCallback } from 'react'
 import { Button, chakra, InputGroup, InputRightElement } from '@chakra-ui/react'
 import { InputControl } from '@src/component/Form/InputControl/InputControl'
-
-type CreateChatMessageInput = {
-  message: string
-  user: {
-    name: string
-  }
-  createdAt: unknown
-}
-
-const schema = z.object({
-  message: z.string().min(1).max(100),
-  createdAt: z.unknown(),
-  user: z.object({
-    name: z.preprocess((v) => v || '未設定', z.string()),
-  }),
-})
+import type { CreateChatMessageInput } from '@src/feature/chat/model/Chat'
+import {
+  createChatMessageDefaultValues,
+  createChatMessageSchema,
+} from '@src/feature/chat/model/Chat'
 
 export const useCreateChatMessageForm = () => {
   const user = useAuthContext()
   const form = useForm<CreateChatMessageInput>({
-    defaultValues: {
-      message: '',
-      user: {
-        name: user?.displayName ?? '',
-      },
-      createdAt: serverTimestamp(),
-    },
-    schema,
+    defaultValues: createChatMessageDefaultValues(user),
+    schema: createChatMessageSchema,
   })
 
   const { reset, handleSubmit, control } = form
@@ -46,8 +28,7 @@ export const useCreateChatMessageForm = () => {
       startLoading()
       try {
         const db = chatDatabaseRef()
-        const newRef = await push(db)
-        await set(newRef, input)
+        await push(db, input)
         reset()
       } catch (e) {
         console.log(e)
