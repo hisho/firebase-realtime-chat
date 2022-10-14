@@ -1605,6 +1605,11 @@
     protobufjs "^7.0.0"
     yargs "^16.2.0"
 
+"@hisho/utils@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@hisho/utils/-/utils-0.0.4.tgz#dff55e009aaf8e01bad80ecbfcdab889e000b595"
+  integrity sha512-XopnlozfU1p0bxzV0h20m5aun9gnk3KbLfk5ywIn+Rpa2BNCFNk+VMNrylFT5rLcxggYn3VFAuerQjMAYr9I2Q==
+
 "@hookform/resolvers@^2.9.8":
   version "2.9.8"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.9.8.tgz#9af51d15602f3c6e3249714712d8275564e65b72"
