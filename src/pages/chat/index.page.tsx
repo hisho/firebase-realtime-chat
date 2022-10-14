@@ -11,8 +11,8 @@ const Page: NextPageWithLayout = () => {
 
   return (
     <div>
-      {chats.map((message, index) => (
-        <Box key={`${message}_${index}`}>{message}</Box>
+      {chats.map(({ message, key }, index) => (
+        <Box key={`${message}_${key}_${index}`}>{message}</Box>
       ))}
       {renderCreateChatMessageForm()}
     </div>
