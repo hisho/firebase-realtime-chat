@@ -6,10 +6,12 @@ import { useSubscribeChat } from '@src/feature/chat/hooks/useSubscribeChat/useSu
 import { useCreateChatMessageForm } from '@src/feature/chat/component/CreateChatMessageForm/useCreateChatMessageForm'
 import { footerHeight } from '@src/layout/Footer/Footer'
 import { headerHeight } from '@src/layout/Header/Header'
+import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 
 const Page: NextPageWithLayout = () => {
   const { chats } = useSubscribeChat()
   const { renderCreateChatMessageForm } = useCreateChatMessageForm()
+  const authUser = useAuthContext()
 
   return (
     <Box pb={14} pos={'relative'}>
@@ -17,19 +19,29 @@ const Page: NextPageWithLayout = () => {
         height={`calc(100vh - ${headerHeight} - ${footerHeight} - ${14 * 4}px)`}
         overflowY={'auto'}
         flexDirection={'column'}
-        gap={1}
         mx={-4}
       >
         {chats.map(({ message, user, key }, index) => (
           <Flex
             py={1}
-            px={4}
-            _odd={{ bgColor: 'gray.100' }}
+            px={2}
+            flexShrink={0}
+            alignItems={'start'}
             key={`${message}_${key}_${index}`}
-            alignItems={'center'}
+            flexDirection={authUser?.uid === user.uid ? 'row-reverse' : 'row'}
           >
-            <Avatar name={user.name} size={'md'} />
-            <Text ml={2} fontSize={'14px'} fontWeight={'medium'}>
+            <Avatar name={user.name} w={'40px'} h={'40px'} flexShrink={0} />
+            <Text
+              bgColor={'gray.100'}
+              w={'full'}
+              rounded={'4px'}
+              py={1}
+              px={2}
+              ml={authUser?.uid === user.uid ? 0 : 2}
+              mr={authUser?.uid === user.uid ? 2 : 0}
+              fontSize={'14px'}
+              fontWeight={'medium'}
+            >
               {message}
             </Text>
           </Flex>
