@@ -7,6 +7,7 @@ import { valueAsDate, valueAsString } from '@hisho/utils'
 export type CreateChatMessageInput = {
   message: string
   user: {
+    uid: string
     name: string
     avatarUrl: string
   }
@@ -17,6 +18,10 @@ export const createChatMessageSchema = z.object<ToZod<CreateChatMessageInput>>({
   message: z.string().min(1).max(100),
   createdAt: z.unknown(),
   user: z.object({
+    uid: z.preprocess(
+      (v) => valueAsString(v, { defaultValue: '' }),
+      z.string()
+    ),
     name: z.preprocess(
       (v) => valueAsString(v, { defaultValue: '未設定' }),
       z.string()
@@ -32,6 +37,7 @@ export const createChatMessageDefaultValues = (user: AuthState) => {
   return {
     message: '',
     user: {
+      uid: user?.uid ?? '',
       name: user?.displayName ?? '',
       avatarUrl: user?.photoURL ?? '',
     },
@@ -42,6 +48,7 @@ export const createChatMessageDefaultValues = (user: AuthState) => {
 export type Chat = {
   message: string
   user: {
+    uid: string
     name: string
     avatarUrl: string | null
   }
@@ -56,6 +63,7 @@ export const chatSchema = z.object<ToZod<Chat>>({
     z.date()
   ),
   user: z.object({
+    uid: z.string(),
     name: z.string(),
     avatarUrl: z.preprocess(
       (v) => valueAsString(v, { defaultValue: null }),
