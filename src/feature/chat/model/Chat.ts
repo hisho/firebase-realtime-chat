@@ -17,9 +17,12 @@ export const createChatMessageSchema = z.object<ToZod<CreateChatMessageInput>>({
   message: z.string().min(1).max(100),
   createdAt: z.unknown(),
   user: z.object({
-    name: z.string(),
-    avatarUrl: z.preprocess(
+    name: z.preprocess(
       (v) => valueAsString(v, { defaultValue: '未設定' }),
+      z.string()
+    ),
+    avatarUrl: z.preprocess(
+      (v) => valueAsString(v, { defaultValue: '' }),
       z.string()
     ),
   }),
