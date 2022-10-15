@@ -4,13 +4,13 @@ import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProv
 import { chatDatabaseRef } from '@src/feature/chat/constant/chatDatabaseRef'
 import { push } from '@firebase/database'
 import { useCallback } from 'react'
-import { Button, chakra, InputGroup, InputRightElement } from '@chakra-ui/react'
-import { InputControl } from '@src/component/Form/InputControl/InputControl'
+import { chakra, Flex, IconButton } from '@chakra-ui/react'
 import type { CreateChatMessageInput } from '@src/feature/chat/model/Chat'
 import {
   createChatMessageDefaultValues,
   createChatMessageSchema,
 } from '@src/feature/chat/model/Chat'
+import { TextareaControl } from '@src/component/Form/TextareaControl/TextareaControl'
 
 export const useCreateChatMessageForm = () => {
   const user = useAuthContext()
@@ -42,14 +42,19 @@ export const useCreateChatMessageForm = () => {
   const renderCreateChatMessageForm = useCallback(() => {
     return (
       <chakra.form onClick={handleSubmit(handleCreateChatMessage)}>
-        <InputGroup size="md">
-          <InputControl control={control} name={'message'} />
-          <InputRightElement width="4.5rem">
-            <Button w={'full'} type={'submit'}>
-              送信
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        <TextareaControl
+          control={control}
+          name={'message'}
+          h={'80px'}
+          resize={'none'}
+        />
+        <Flex justifyContent={'end'}>
+          <IconButton
+            type={'submit'}
+            size={'xs'}
+            aria-label={'チャットを送る'}
+          />
+        </Flex>
       </chakra.form>
     )
   }, [control, handleCreateChatMessage, handleSubmit])

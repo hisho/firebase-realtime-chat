@@ -20,7 +20,7 @@ export const Chats = () => {
     <Flex
       pt={2}
       id={'scroll-area'}
-      height={`calc(100vh - ${headerHeight} - ${footerHeight} - ${14 * 4}px)`}
+      height={`calc(100vh - ${headerHeight} - ${footerHeight} - 120px)`}
       overflowY={'auto'}
       flexDirection={'column'}
     >
@@ -36,7 +36,7 @@ export const Chats = () => {
           <Avatar name={user.name} w={'40px'} h={'40px'} flexShrink={0} />
           <Text
             bgColor={'gray.100'}
-            w={'full'}
+            w={'fit-content'}
             rounded={'4px'}
             py={1}
             px={2}
@@ -44,6 +44,7 @@ export const Chats = () => {
             mr={authUser?.uid === user.uid ? 2 : 0}
             fontSize={'14px'}
             fontWeight={'medium'}
+            whiteSpace={'pre-line'}
           >
             {message}
           </Text>

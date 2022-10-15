@@ -9,11 +9,11 @@ const Page: NextPageWithLayout = () => {
   const { renderCreateChatMessageForm } = useCreateChatMessageForm()
 
   return (
-    <Box pb={14} pos={'relative'}>
+    <Box pb={'120px'} pos={'relative'}>
       <Box mx={-4}>
         <Chats />
       </Box>
-      <Box pos={'absolute'} insetX={'0'} bottom={2}>
+      <Box pos={'absolute'} insetX={-2} bottom={2}>
         {renderCreateChatMessageForm()}
       </Box>
     </Box>
