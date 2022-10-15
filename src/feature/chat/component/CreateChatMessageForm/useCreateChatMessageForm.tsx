@@ -11,6 +11,7 @@ import {
   createChatMessageSchema,
 } from '@src/feature/chat/model/Chat'
 import { TextareaControl } from '@src/component/Form/TextareaControl/TextareaControl'
+import { SendIcon } from '@src/component/Icon/SendIcon/SendIcon'
 
 export const useCreateChatMessageForm = () => {
   const user = useAuthContext()
@@ -53,6 +54,7 @@ export const useCreateChatMessageForm = () => {
             type={'submit'}
             size={'xs'}
             aria-label={'チャットを送る'}
+            icon={<SendIcon />}
           />
         </Flex>
       </chakra.form>
