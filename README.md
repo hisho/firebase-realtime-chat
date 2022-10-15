@@ -108,6 +108,28 @@ const App = () => {
 }
 ```
 
+## チャット周り
+
+### チャット送信
+```tsx
+import { getDatabase, push, ref } from '@firebase/database'
+import { FirebaseError } from 'firebase/app'
+
+const sendChatMessage = async () => {
+  try {
+    const db = getDatabase()
+    const dbRef = ref(db, 'chat')
+    await push(dbRef, {
+      message: 'test',
+    })
+  } catch (e) {
+    if (e instanceof FirebaseError) {
+      console.log(e)
+    }
+  }
+}
+```
+
 ## 使用技術
 
 ### UI
