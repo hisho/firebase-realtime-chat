@@ -47,7 +47,7 @@ export const useCreateChatMessageForm = ({
         stopLoading()
       }
     },
-    [reset, startLoading, stopLoading]
+    [onCompleted, onError, reset, startLoading, stopLoading]
   )
 
   const renderCreateChatMessageForm = useCallback(() => {
