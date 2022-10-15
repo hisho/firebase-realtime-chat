@@ -130,6 +130,40 @@ const sendChatMessage = async () => {
 }
 ```
 
+### チャット取得、表示
+```tsx
+import {useEffect, useState} from 'react'
+import {getDatabase, onChildAdded, ref} from '@firebase/database'
+
+export const App = () => {
+  const [chats, setChats] = useState<{ message: string }[]>([])
+
+  useEffect(() => {
+    try {
+      const db = getDatabase()
+      const dbRef = ref(db, 'chat')
+      return onChildAdded(dbRef, (snapshot) => {
+        const value = snapshot.val()
+        setChats((prev) => [...prev, { message: value.message }])
+      })
+    } catch (e) {
+      console.error(e)
+      return
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  
+  return (
+    <div>
+      {chats.map((chat, i) => (
+        <div key={`${chat.message}_${i}`}>{chat.message}</div>
+      ))}
+    </div>
+  )
+}
+
+```
+
 ## 使用技術
 
 ### UI
