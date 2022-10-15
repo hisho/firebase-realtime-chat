@@ -3,18 +3,10 @@ import { headerHeight } from '@src/layout/Header/Header'
 import { footerHeight } from '@src/layout/Footer/Footer'
 import { useSubscribeChat } from '@src/feature/chat/hooks/useSubscribeChat/useSubscribeChat'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
-import { useEffect } from 'react'
 
 export const Chats = () => {
   const { chats } = useSubscribeChat()
   const authUser = useAuthContext()
-
-  useEffect(() => {
-    const scrollArea = document.getElementById('scroll-area')
-    if (scrollArea) {
-      scrollArea.scrollTop = scrollArea.scrollHeight
-    }
-  }, [chats])
 
   return (
     <Flex
