@@ -13,7 +13,15 @@ import {
 import { TextareaControl } from '@src/component/Form/TextareaControl/TextareaControl'
 import { SendIcon } from '@src/component/Icon/SendIcon/SendIcon'
 
-export const useCreateChatMessageForm = () => {
+type Args = {
+  onCompleted: () => void
+  onError: () => void
+}
+
+export const useCreateChatMessageForm = ({
+  onCompleted,
+  onError,
+}: Partial<Args> = {}) => {
   const user = useAuthContext()
   const form = useForm<CreateChatMessageInput>({
     defaultValues: createChatMessageDefaultValues(user),
@@ -31,7 +39,9 @@ export const useCreateChatMessageForm = () => {
         const db = chatDatabaseRef()
         await push(db, input)
         reset()
+        onCompleted?.()
       } catch (e) {
+        onError?.()
         console.log(e)
       } finally {
         stopLoading()
