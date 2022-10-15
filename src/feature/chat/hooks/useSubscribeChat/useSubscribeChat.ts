@@ -13,11 +13,13 @@ export const useSubscribeChat = () => {
       const db = chatDatabaseRef()
       return onChildAdded(db, (snapshot) => {
         try {
-          const chat = chatSchema.parse({
+          const chat = chatSchema.safeParse({
             ...snapshot.val(),
             key: snapshot.key,
           })
-          setChats((prev) => [...prev, chat])
+          if (chat.success) {
+            setChats((prev) => [...prev, chat.data])
+          }
         } catch (e) {
           __DEV__ && console.error('chatSchema parse error', e)
         }

@@ -44,12 +44,7 @@ export const FormControl = ({
   }, [_errorMessages])
 
   const isInvalid = useMemo(() => {
-    try {
-      z.string().array().min(1).parse(errorMessages)
-      return true
-    } catch (e) {
-      return false
-    }
+    return z.string().array().min(1).safeParse(errorMessages).success
   }, [errorMessages])
 
   return (
