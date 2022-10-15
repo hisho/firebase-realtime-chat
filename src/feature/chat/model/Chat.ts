@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { serverTimestamp } from '@firebase/database'
-import type { AuthState } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
+import type { GlobalAuthState } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 import type { ToZod } from '@src/lib/zod/types'
 import { valueAsDate, valueAsString } from '@hisho/utils'
 
@@ -33,7 +33,7 @@ export const createChatMessageSchema = z.object<ToZod<CreateChatMessageInput>>({
   }),
 })
 
-export const createChatMessageDefaultValues = (user: AuthState) => {
+export const createChatMessageDefaultValues = (user: GlobalAuthState) => {
   return {
     message: '',
     user: {

@@ -8,24 +8,15 @@ import {
 import type { User } from '@firebase/auth'
 import { getAuth, onAuthStateChanged } from '@firebase/auth'
 
-export type AuthState = User | null | undefined
-const AuthContext = createContext<AuthState>(undefined)
-
-/**
- * @see https://beta.reactjs.org/learn/you-might-not-need-an-effect#initializing-the-application
- */
-let didInit = false
+export type GlobalAuthState = User | null | undefined
+const AuthContext = createContext<GlobalAuthState>(undefined)
 
 type Props = { children: ReactNode }
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<AuthState>(undefined)
+  const [user, setUser] = useState<GlobalAuthState>(undefined)
 
   useEffect(() => {
-    if (!didInit) {
-      didInit = true
-      return
-    }
     try {
       const auth = getAuth()
       return onAuthStateChanged(auth, (user) => {

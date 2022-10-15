@@ -4,7 +4,7 @@ import {
   updateProfileSchema,
 } from '@src/feature/auth/util/updateProfile/updateProfile.input'
 import { updateProfile } from '@src/feature/auth/util/updateProfile/updateProfile'
-import type { AuthState } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
+import type { GlobalAuthState } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 import { FirebaseError } from 'firebase/app'
 import { __DEV__ } from '@src/constant/env'
 import { isNullish } from '@src/util/isNullish/isNullish'
@@ -26,7 +26,7 @@ export const useUpdateProfileForm = ({ onCompleted, onError }: Args = {}) => {
   const { stopLoading, startLoading, isLoading } = useLoading()
 
   const handleUpdateProfile = async (
-    user: AuthState,
+    user: GlobalAuthState,
     input: UpdateProfileInput
   ) => {
     startLoading()
