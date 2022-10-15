@@ -1,8 +1,9 @@
-# Firebaseで作るリアルタイムチャット
+# Firebase で作るリアルタイムチャット
 
-## Firebaseの初期化
-firebaseのappを初期化する関数を作成   
-`!getApps().length ? initializeApp(firebaseConfig) : getApp()`ですでに初期化されている場合は初期化しないようにする   
+## Firebase の初期化
+
+firebase の app を初期化する関数を作成  
+`!getApps().length ? initializeApp(firebaseConfig) : getApp()`ですでに初期化されている場合は初期化しないようにする  
 https://firebase.google.com/docs/web/setup?hl=ja#add-sdks-initialize
 
 ```ts
@@ -39,7 +40,9 @@ const App = () => {
 ## 認証周り
 
 ### サインアップ
+
 https://firebase.google.com/docs/auth/web/password-auth?hl=ja#create_a_password-based_account
+
 ```tsx
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
@@ -57,7 +60,9 @@ const signUp = async () => {
 ```
 
 ### サインイン
+
 https://firebase.google.com/docs/auth/web/password-auth?hl=ja#sign_in_a_user_with_an_email_address_and_password
+
 ```tsx
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
@@ -75,7 +80,9 @@ const signIn = async () => {
 ```
 
 ### サインアウト
+
 https://firebase.google.com/docs/auth/web/password-auth?hl=ja#next_steps
+
 ```tsx
 import { getAuth, signOut } from 'firebase/auth'
 
@@ -92,7 +99,9 @@ const signOut = async () => {
 ```
 
 ### 認証状態取得
+
 https://firebase.google.com/docs/auth/web/manage-users?hl=ja#get_the_currently_signed-in_user
+
 ```tsx
 import { useEffect } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -103,7 +112,7 @@ const App = () => {
       setUser(user)
     })
   }, [])
-  
+
   return null
 }
 ```
@@ -111,6 +120,7 @@ const App = () => {
 ## チャット周り
 
 ### チャット送信
+
 ```tsx
 import { getDatabase, push, ref } from '@firebase/database'
 import { FirebaseError } from 'firebase/app'
@@ -131,9 +141,10 @@ const sendChatMessage = async () => {
 ```
 
 ### チャット取得、表示
+
 ```tsx
-import {useEffect, useState} from 'react'
-import {getDatabase, onChildAdded, ref} from '@firebase/database'
+import { useEffect, useState } from 'react'
+import { getDatabase, onChildAdded, ref } from '@firebase/database'
 
 export const App = () => {
   const [chats, setChats] = useState<{ message: string }[]>([])
@@ -152,7 +163,7 @@ export const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  
+
   return (
     <div>
       {chats.map((chat, i) => (
@@ -161,22 +172,26 @@ export const App = () => {
     </div>
   )
 }
-
 ```
 
 ## 使用技術
 
 ### UI
+
 - Chakra UI
 
 ### Backend
+
 - Firebase
 
 ### Form
+
 - React Hook Form
 
 ### validation
+
 - Zod
 
 ### test
+
 - Jest
