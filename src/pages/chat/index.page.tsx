@@ -6,7 +6,14 @@ import { useCreateChatMessageForm } from '@src/feature/chat/component/CreateChat
 import { Chats } from '@src/feature/chat/component/Chats/Chats'
 
 const Page: NextPageWithLayout = () => {
-  const { renderCreateChatMessageForm } = useCreateChatMessageForm()
+  const { renderCreateChatMessageForm } = useCreateChatMessageForm({
+    onCompleted: () => {
+      const scrollArea = document.getElementById('scroll-area')
+      if (scrollArea) {
+        scrollArea.scrollTop = scrollArea.scrollHeight
+      }
+    },
+  })
 
   return (
     <Box pb={'120px'} pos={'relative'}>
