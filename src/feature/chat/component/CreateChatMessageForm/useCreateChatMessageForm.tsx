@@ -22,7 +22,7 @@ export const useCreateChatMessageForm = ({
   onCompleted,
   onError,
 }: Partial<Args> = {}) => {
-  const user = useAuthContext()
+  const { user } = useAuthContext()
   const form = useForm<CreateChatMessageInput>({
     defaultValues: createChatMessageDefaultValues(user),
     schema: createChatMessageSchema,
