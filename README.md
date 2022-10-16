@@ -59,6 +59,43 @@ const signUp = async () => {
 }
 ```
 
+### 確認メール送信
+https://firebase.google.com/docs/auth/web/manage-users?hl=ja#send_a_user_a_verification_email
+
+```tsx
+import {
+  sendEmailVerification as firebaseSendEmailVerification,
+  User,
+} from '@firebase/auth'
+
+type SendEmailVerificationOptions = {
+  redirectUrl?: string
+}
+
+export const sendEmailVerification = (
+  user: User,
+  { redirectUrl }: SendEmailVerificationOptions = {}
+) => {
+  return new Promise<void>((resolve, reject) => {
+    ;(async () => {
+      try {
+        const actionCodeSettings = redirectUrl
+          ? {
+              url: redirectUrl,
+            }
+          : undefined
+
+        await firebaseSendEmailVerification(user, actionCodeSettings)
+        resolve()
+      } catch (e) {
+        reject(e)
+      }
+    })()
+  })
+}
+
+```
+
 ### サインイン
 
 https://firebase.google.com/docs/auth/web/password-auth?hl=ja#sign_in_a_user_with_an_email_address_and_password
