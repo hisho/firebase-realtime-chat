@@ -37,11 +37,11 @@ export const useSignInFormModal = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button variant="ghost" mr={3} onClick={onClose}>
               閉じる
             </Button>
             <Button
-              variant="ghost"
+              colorScheme="blue"
               onClick={form.handleSubmit(handleSignIn)}
               isLoading={isLoading}
             >
