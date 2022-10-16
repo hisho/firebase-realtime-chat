@@ -15,7 +15,7 @@ import { z } from 'zod'
 import Head from 'next/head'
 
 const Page: NextPageWithLayout = () => {
-  const { query } = useRouter()
+  const { query, isReady } = useRouter()
   const [room, setRoom] = useState<Room | undefined>(undefined)
   const roomUid = z
     .object({
@@ -24,6 +24,7 @@ const Page: NextPageWithLayout = () => {
     .safeParse(query)
 
   useEffect(() => {
+    if (!isReady) return
     if (!roomUid.success) {
       return
     }
@@ -41,16 +42,19 @@ const Page: NextPageWithLayout = () => {
       }
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roomUid])
+  }, [query, isReady])
 
-  const { renderCreateChatMessageForm } = useCreateChatMessageForm({
-    onCompleted: () => {
-      const scrollArea = document.getElementById('scroll-area')
-      if (scrollArea) {
-        scrollArea.scrollTop = scrollArea.scrollHeight
-      }
-    },
-  })
+  const { renderCreateChatMessageForm } = useCreateChatMessageForm(
+    roomUid.success ? roomUid.data.room_uid : '',
+    {
+      onCompleted: () => {
+        const scrollArea = document.getElementById('scroll-area')
+        if (scrollArea) {
+          scrollArea.scrollTop = scrollArea.scrollHeight
+        }
+      },
+    }
+  )
 
   return (
     <>
