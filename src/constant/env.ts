@@ -11,9 +11,9 @@ const throwErrorMessage = (
   return ''
 }
 
-export const FRONTEND_URL = process.env['NEXT_PUBLIC_VERCEL_URL']
-  ? `https://${process.env['NEXT_PUBLIC_VERCEL_URL']}`
-  : throwErrorMessage('NEXT_PUBLIC_FRONTEND_URL', '.env')
+export const FRONTEND_URL =
+  process.env['NEXT_PUBLIC_FRONTEND_URL'] ??
+  throwErrorMessage('NEXT_PUBLIC_FRONTEND_URL', '.env')
 export const FIREBASE_API_KEY =
   process.env['NEXT_PUBLIC_FIREBASE_API_KEY'] ??
   throwErrorMessage('NEXT_PUBLIC_FIREBASE_API_KEY', '.env.local')
