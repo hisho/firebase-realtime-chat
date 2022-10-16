@@ -3,29 +3,41 @@ import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 import { AuthGuard } from '@src/feature/auth/component/AuthGuard/AuthGuard'
 import { Box, chakra, Grid, Text } from '@chakra-ui/react'
 import { Navigate } from '@src/component/Navigate/Navigate'
-
-const rooms = [
-  {
-    name: 'Room 1',
-    description: 'This is room 1',
-    id: '1',
-  },
-  {
-    name: 'Room 2',
-    description:
-      'This is room 2 This is room 2 This is room 2 This is room 2 This is room 2 This is room 2 This is room 2 This is room 2 This is room 2',
-    id: '2',
-  },
-]
+import { useEffect, useState } from 'react'
+import type { Room } from '@src/feature/rooms/model/Room'
+import { roomSchema } from '@src/feature/rooms/model/Room'
+import { getDocs, orderBy, query } from 'firebase/firestore'
+import { __DEV__ } from '@src/constant/env'
+import { roomsDatabaseCollectionRef } from '@src/feature/rooms/constant/roomDatabaseRef'
 
 const Page: NextPageWithLayout = () => {
+  const [rooms, setRooms] = useState<Room[]>([])
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const db = roomsDatabaseCollectionRef()
+        const roomsQuery = await query(db, orderBy('createdAt', 'desc'))
+        const querySnapshots = await getDocs(roomsQuery)
+        const parsedRooms = roomSchema.array().safeParse(
+          querySnapshots.docs.map((doc) => ({
+            uid: doc.id,
+            ...doc.data(),
+          }))
+        )
+        setRooms(parsedRooms.success ? parsedRooms.data : [])
+      } catch (e) {
+        __DEV__ && console.log(e)
+      }
+    })()
+  }, [])
+
   return (
     <Box py={10}>
       <Grid gridTemplateColumns={'repeat(2,1fr)'} gap={2}>
-        {rooms.map(({ name, id, description }, index) => (
+        {rooms.map(({ name, uid, description }, index) => (
           <Navigate
-            key={`Room_${id}_${index}`}
-            href={(path) => path.rooms._room_uid(id).chat.$url()}
+            key={`Room_${uid}_${index}`}
+            href={(path) => path.rooms._room_uid(uid).chat.$url()}
           >
             <chakra.a
               px={4}
