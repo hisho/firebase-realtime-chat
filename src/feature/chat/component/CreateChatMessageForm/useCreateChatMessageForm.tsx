@@ -1,7 +1,7 @@
 import { useForm } from '@src/lib/from/useForm/useForm'
 import { useLoading } from '@src/hooks/useLoading/useLoading'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
-import { chatDatabaseRef } from '@src/feature/chat/constant/chatDatabaseRef'
+import { createChatRef } from '@src/feature/chat/constant/chatDatabaseRef'
 import { push } from '@firebase/database'
 import { useCallback } from 'react'
 import { chakra, Flex, IconButton } from '@chakra-ui/react'
@@ -18,10 +18,10 @@ type Args = {
   onError: () => void
 }
 
-export const useCreateChatMessageForm = ({
-  onCompleted,
-  onError,
-}: Partial<Args> = {}) => {
+export const useCreateChatMessageForm = (
+  roomUid: string,
+  { onCompleted, onError }: Partial<Args> = {}
+) => {
   const { user } = useAuthContext()
   const form = useForm<CreateChatMessageInput>({
     defaultValues: createChatMessageDefaultValues(user),
@@ -36,7 +36,7 @@ export const useCreateChatMessageForm = ({
     async (input: CreateChatMessageInput) => {
       startLoading()
       try {
-        const db = chatDatabaseRef()
+        const db = createChatRef(roomUid)
         await push(db, input)
         reset()
         onCompleted?.()
@@ -47,7 +47,7 @@ export const useCreateChatMessageForm = ({
         stopLoading()
       }
     },
-    [onCompleted, onError, reset, startLoading, stopLoading]
+    [onCompleted, onError, reset, roomUid, startLoading, stopLoading]
   )
 
   const renderCreateChatMessageForm = useCallback(() => {

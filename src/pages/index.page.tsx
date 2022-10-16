@@ -1,8 +1,32 @@
 import type { NextPageWithLayout } from '@src/pages/_app.page'
 import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
+import { useRooms } from '@src/feature/rooms/hooks/useRooms/useRooms'
+import { Box, chakra, Grid, Heading } from '@chakra-ui/react'
+import { Navigate } from '@src/component/Navigate/Navigate'
+import { RoomCard } from '@src/feature/rooms/component/RoomCard/RoomCard'
+import { Spacer } from '@src/component/Spacer/Spacer'
 
 const Page: NextPageWithLayout = () => {
-  return <div>saaaas</div>
+  const { rooms } = useRooms({ limit: 4 })
+
+  return (
+    <Box py={10}>
+      <Heading fontSize={'24px'}>最近作成されたルーム</Heading>
+      <Spacer h={4} />
+      <Grid gridTemplateColumns={'repeat(2,1fr)'} gap={2}>
+        {rooms.map((room, index) => (
+          <Navigate
+            key={`RoomCard_${room.uid}_${index}`}
+            href={(path) => path.rooms._room_uid(room.uid).chat.$url()}
+          >
+            <chakra.a _hover={{ opacity: 0.8 }}>
+              <RoomCard room={room} />
+            </chakra.a>
+          </Navigate>
+        ))}
+      </Grid>
+    </Box>
+  )
 }
 
 Page.getLayout = (page) => {
