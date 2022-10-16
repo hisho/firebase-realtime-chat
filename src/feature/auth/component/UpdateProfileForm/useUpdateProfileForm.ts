@@ -26,7 +26,7 @@ export const useUpdateProfileForm = ({ onCompleted, onError }: Args = {}) => {
   const { stopLoading, startLoading, isLoading } = useLoading()
 
   const handleUpdateProfile = async (
-    user: GlobalAuthState,
+    user: GlobalAuthState['user'],
     input: UpdateProfileInput
   ) => {
     startLoading()

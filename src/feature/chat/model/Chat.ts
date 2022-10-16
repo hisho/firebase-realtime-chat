@@ -33,7 +33,9 @@ export const createChatMessageSchema = z.object<ToZod<CreateChatMessageInput>>({
   }),
 })
 
-export const createChatMessageDefaultValues = (user: GlobalAuthState) => {
+export const createChatMessageDefaultValues = (
+  user: GlobalAuthState['user']
+) => {
   return {
     message: '',
     user: {

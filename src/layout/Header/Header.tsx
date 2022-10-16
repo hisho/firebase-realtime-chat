@@ -21,7 +21,7 @@ import { useSignInFormModal } from '@src/feature/auth/component/SignInForm/SignI
 export const headerHeight = '80px'
 
 export const Header = () => {
-  const user = useAuthContext()
+  const { user } = useAuthContext()
   const { handleSignOut } = useSignOut()
   const { onOpen, renderSignInFormModal } = useSignInFormModal()
 

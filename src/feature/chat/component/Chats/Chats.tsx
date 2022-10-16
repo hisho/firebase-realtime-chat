@@ -6,7 +6,7 @@ import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProv
 
 export const Chats = () => {
   const { chats } = useSubscribeChat()
-  const authUser = useAuthContext()
+  const { user: authUser } = useAuthContext()
 
   return (
     <Flex

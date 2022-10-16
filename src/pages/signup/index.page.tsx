@@ -27,7 +27,7 @@ const Page: NextPageWithLayout = () => {
     },
   })
 
-  const user = useAuthContext()
+  const { user } = useAuthContext()
   const onCompleteSignUp = () => {
     setStep('complete')
   }

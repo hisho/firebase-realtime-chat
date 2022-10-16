@@ -38,6 +38,9 @@ export const Footer = () => {
           <Navigate href={(path) => path.signin.$url()}>
             <Link>ログイン</Link>
           </Navigate>
+          <Navigate href={(path) => path.rooms.$url()}>
+            <Link>ルーム一覧</Link>
+          </Navigate>
         </Flex>
       </Container>
     </chakra.footer>

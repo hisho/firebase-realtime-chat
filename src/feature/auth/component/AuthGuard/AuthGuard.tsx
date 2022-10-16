@@ -10,7 +10,7 @@ type Props = Required<{
 }>
 
 export const AuthGuard = ({ children }: Props) => {
-  const user = useAuthContext()
+  const { user } = useAuthContext()
   const { push } = useNavigate()
 
   if (isUndefined(user)) {
