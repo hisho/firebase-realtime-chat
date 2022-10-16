@@ -6,5 +6,9 @@ type Props = {
 }
 
 export const Main = ({ children }: Props) => {
-  return <Container as={'main'}>{children}</Container>
+  return (
+    <Container as={'main'} overflowY={'auto'}>
+      {children}
+    </Container>
+  )
 }
