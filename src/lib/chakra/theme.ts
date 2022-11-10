@@ -13,9 +13,16 @@ export const theme = extendTheme({
       img: {
         display: 'block',
       },
-      body: {
+      'html, body,#__next': {
         height: '100%',
+        '&': {
+          height: '100svh',
+        },
+      },
+      '#__next': {
         backgroundColor: 'gray.50',
+        display: 'flex',
+        flexDirection: 'column',
       },
     },
   },

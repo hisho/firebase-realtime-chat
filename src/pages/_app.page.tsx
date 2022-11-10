@@ -5,8 +5,6 @@ import type { ReactElement, ReactNode } from 'react'
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next/types'
 import { AuthProvider } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
-import { footerHeight } from '@src/layout/Footer/Footer'
-import { headerHeight } from '@src/layout/Header/Header'
 
 initializeFirebaseApp()
 
@@ -23,17 +21,18 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Container
-        h={'100vh'}
-        bgColor={'white'}
-        px={0}
-        display={'grid'}
-        gridTemplateRows={`${headerHeight} calc(100vh - ${headerHeight} - ${footerHeight}) ${footerHeight}`}
-      >
-        <AuthProvider>
+      <AuthProvider>
+        <Container
+          flex={1}
+          display={'flex'}
+          px={0}
+          flexDirection={'column'}
+          minHeight={0}
+          bgColor={'white'}
+        >
           {getLayout(<Component {...pageProps} />, pageProps)}
-        </AuthProvider>
-      </Container>
+        </Container>
+      </AuthProvider>
     </ChakraProvider>
   )
 }

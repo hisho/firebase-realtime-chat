@@ -1,6 +1,4 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react'
-import { headerHeight } from '@src/layout/Header/Header'
-import { footerHeight } from '@src/layout/Footer/Footer'
 import { useSubscribeChat } from '@src/feature/chat/hooks/useSubscribeChat/useSubscribeChat'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
 
@@ -9,13 +7,7 @@ export const Chats = () => {
   const { user: authUser } = useAuthContext()
 
   return (
-    <Flex
-      pt={2}
-      id={'scroll-area'}
-      height={`calc(100vh - ${headerHeight} - ${footerHeight} - 120px)`}
-      overflowY={'auto'}
-      flexDirection={'column'}
-    >
+    <Flex pt={2} id={'scroll-area'} flexDirection={'column'}>
       {chats.map(({ message, user, key }, index) => (
         <Flex
           py={1}

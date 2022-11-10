@@ -7,7 +7,13 @@ type Props = {
 
 export const Main = ({ children }: Props) => {
   return (
-    <Container as={'main'} overflowY={'auto'}>
+    <Container
+      as={'main'}
+      flex={1}
+      display={'flex'}
+      flexDirection={'column'}
+      minHeight={0}
+    >
       {children}
     </Container>
   )

@@ -61,13 +61,11 @@ const Page: NextPageWithLayout = () => {
       <Head>
         <title>{room?.name}</title>
       </Head>
-      <Box pb={'120px'} pos={'relative'}>
-        <Box mx={-4}>
+      <Box display={'flex'} flexDirection={'column'} minHeight={0}>
+        <Box pb={2} overflowY={'auto'} mx={-4}>
           <Chats />
         </Box>
-        <Box pos={'absolute'} insetX={-2} bottom={2}>
-          {renderCreateChatMessageForm()}
-        </Box>
+        <Box>{renderCreateChatMessageForm()}</Box>
       </Box>
     </>
   )
