@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Skeleton, Spacer, Text } from '@chakra-ui/react'
 import type { Room } from '@src/feature/rooms/model/Room'
 
 type Props = {
@@ -17,3 +17,15 @@ export const RoomCard = ({ room }: Props) => {
     </Box>
   )
 }
+
+const RoomCardSkeleton = () => {
+  return (
+    <Box px={4} py={2} bgColor={'blue.50'} h={'full'}>
+      <Skeleton h={'24px'} />
+      <Spacer h={'5px'} />
+      <Skeleton h={'18px'} />
+    </Box>
+  )
+}
+
+RoomCard.Skeleton = RoomCardSkeleton
