@@ -4,6 +4,7 @@ import { isNull } from '@src/util/isNull/isNull'
 import type { ReactNode } from 'react'
 import { useNavigate } from '@src/hooks/useNavigate/useNavigate'
 import { Center, Flex, Spinner, Text } from '@chakra-ui/react'
+import { useRouter } from '@src/hooks/useRouter/useRouter'
 
 type Props = Required<{
   children: ReactNode
@@ -12,6 +13,7 @@ type Props = Required<{
 export const AuthGuard = ({ children }: Props) => {
   const { user } = useAuthContext()
   const { push } = useNavigate()
+  const { asPath } = useRouter()
 
   if (isUndefined(user)) {
     return (
@@ -25,7 +27,13 @@ export const AuthGuard = ({ children }: Props) => {
   }
 
   if (isNull(user)) {
-    push((path) => path.signin.$url())
+    push((path) =>
+      path.signin.$url({
+        query: {
+          redirect: asPath,
+        },
+      })
+    )
     return null
   }
 
