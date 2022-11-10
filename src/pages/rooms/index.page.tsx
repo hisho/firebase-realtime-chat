@@ -5,23 +5,32 @@ import { Box, chakra, Grid } from '@chakra-ui/react'
 import { Navigate } from '@src/component/Navigate/Navigate'
 import { useRooms } from '@src/feature/rooms/hooks/useRooms/useRooms'
 import { RoomCard } from '@src/feature/rooms/component/RoomCard/RoomCard'
+import { Range } from '@src/component/Rnage/Rnage'
 
 const Page: NextPageWithLayout = () => {
-  const { rooms } = useRooms()
+  const { rooms, isLoading } = useRooms()
 
   return (
     <Box py={10}>
       <Grid gridTemplateColumns={'repeat(2,1fr)'} gap={2}>
-        {rooms.map((room, index) => (
-          <Navigate
-            key={`RoomCard_${room.uid}_${index}`}
-            href={(path) => path.rooms._room_uid(room.uid).chat.$url()}
-          >
-            <chakra.a _hover={{ opacity: 0.8 }}>
-              <RoomCard room={room} />
-            </chakra.a>
-          </Navigate>
-        ))}
+        {isLoading ? (
+          <Range length={8}>
+            {({ index }) => (
+              <RoomCard.Skeleton key={`RoomCard.Skeleton_${index}`} />
+            )}
+          </Range>
+        ) : (
+          rooms.map((room, index) => (
+            <Navigate
+              key={`RoomCard_${room.uid}_${index}`}
+              href={(path) => path.rooms._room_uid(room.uid).chat.$url()}
+            >
+              <chakra.a _hover={{ opacity: 0.8 }}>
+                <RoomCard room={room} />
+              </chakra.a>
+            </Navigate>
+          ))
+        )}
       </Grid>
     </Box>
   )
