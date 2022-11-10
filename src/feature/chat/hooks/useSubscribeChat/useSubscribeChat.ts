@@ -6,8 +6,10 @@ import type { Chat } from '@src/feature/chat/model/Chat'
 import { chatSchema } from '@src/feature/chat/model/Chat'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
+import { useLoading } from '@src/hooks/useLoading/useLoading'
 
 export const useSubscribeChat = () => {
+  const { startLoading, stopLoading, isLoading } = useLoading()
   const [chats, setChats] = useState<Chat[]>([])
   const { query, isReady } = useRouter()
   const roomUid = z
@@ -21,6 +23,7 @@ export const useSubscribeChat = () => {
     if (!roomUid.success) {
       return
     }
+    startLoading()
     try {
       const db = createChatRef(roomUid.data.room_uid)
       return onChildAdded(db, (snapshot) => {
@@ -34,10 +37,13 @@ export const useSubscribeChat = () => {
           }
         } catch (e) {
           __DEV__ && console.error('chatSchema parse error', e)
+        } finally {
+          stopLoading()
         }
       })
     } catch (e) {
       __DEV__ && console.error(e)
+      stopLoading()
       return
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,5 +51,6 @@ export const useSubscribeChat = () => {
 
   return {
     chats,
+    isLoading,
   }
 }
