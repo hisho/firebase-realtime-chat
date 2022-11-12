@@ -61,8 +61,16 @@ const Page: NextPageWithLayout = () => {
       <Head>
         <title>{room?.name}</title>
       </Head>
-      <Box display={'flex'} flexDirection={'column'} minHeight={0}>
-        <Box pb={2} overflowY={'auto'} mx={-4}>
+      <Box display={'flex'} flexDirection={'column'} minHeight={0} flex={1}>
+        <Box
+          pb={2}
+          overflowY={'auto'}
+          mx={-4}
+          flex={1}
+          display={'flex'}
+          flexDirection={'column'}
+          minHeight={0}
+        >
           <Chats />
         </Box>
         <Box>{renderCreateChatMessageForm()}</Box>
