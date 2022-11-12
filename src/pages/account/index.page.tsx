@@ -2,7 +2,15 @@ import type { NextPageWithLayout } from '@src/pages/_app.page'
 import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 import { AuthGuard } from '@src/feature/auth/component/AuthGuard/AuthGuard'
 import { useAuthContext } from '@src/feature/auth/provider/AuthProvider/AuthProvider'
-import { Box, Button, chakra, Flex, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  chakra,
+  Flex,
+  Heading,
+  Text,
+} from '@chakra-ui/react'
 import { UserAvatar } from '@src/component/Avatar/UserAvatar/UserAvatar'
 import { Spacer } from '@src/component/Spacer/Spacer'
 import { InputControl } from '@src/component/Form/InputControl/InputControl'
@@ -50,17 +58,30 @@ const CreateRoom = () => {
   }
 
   return (
-    <chakra.form onSubmit={handleSubmit(handleCreateRoom)}>
-      <FormControl label={'ルーム名'} errorMessages={errors.name?.message}>
-        <InputControl control={control} name={'name'} />
-      </FormControl>
-      <FormControl label={'説明文'} errorMessages={errors.description?.message}>
-        <InputControl control={control} name={'description'} />
-      </FormControl>
-      <Button type={'submit'} isLoading={isLoading}>
-        ルームを作成する
-      </Button>
-    </chakra.form>
+    <Box>
+      <Heading as={'h2'} fontSize={'xl'}>
+        ルーム作成
+      </Heading>
+      <Spacer h={4} />
+      <chakra.form onSubmit={handleSubmit(handleCreateRoom)}>
+        <FormControl label={'ルーム名'} errorMessages={errors.name?.message}>
+          <InputControl control={control} name={'name'} />
+        </FormControl>
+        <Spacer h={2} />
+        <FormControl
+          label={'説明文'}
+          errorMessages={errors.description?.message}
+        >
+          <InputControl control={control} name={'description'} />
+        </FormControl>
+        <Spacer h={4} />
+        <Center>
+          <Button type={'submit'} isLoading={isLoading}>
+            ルームを作成する
+          </Button>
+        </Center>
+      </chakra.form>
+    </Box>
   )
 }
 
@@ -82,7 +103,7 @@ const Page: NextPageWithLayout = () => {
           <Box>{user?.email}</Box>
         </Flex>
       </Flex>
-      <Spacer h={2} />
+      <Spacer h={8} />
       <CreateRoom />
     </Box>
   )
