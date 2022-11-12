@@ -1,7 +1,7 @@
 import type { NextPageWithLayout } from '@src/pages/_app.page'
 import { BaseLayout } from '@src/layout/BaseLayout/BaseLayout'
 import { AuthGuard } from '@src/feature/auth/component/AuthGuard/AuthGuard'
-import { Box } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 import { useCreateChatMessageForm } from '@src/feature/chat/component/CreateChatMessageForm/useCreateChatMessageForm'
 import { Chats } from '@src/feature/chat/component/Chats/Chats'
 import { useEffect, useState } from 'react'
@@ -61,19 +61,29 @@ const Page: NextPageWithLayout = () => {
       <Head>
         <title>{room?.name}</title>
       </Head>
-      <Box display={'flex'} flexDirection={'column'} minHeight={0} flex={1}>
-        <Box
-          pb={2}
-          overflowY={'auto'}
-          mx={-4}
-          flex={1}
-          display={'flex'}
-          flexDirection={'column'}
-          minHeight={0}
-        >
-          <Chats />
+      <Box
+        display={'flex'}
+        flexDirection={'column'}
+        minHeight={0}
+        flex={1}
+        mx={-4}
+      >
+        <Heading px={2} borderBottomWidth={1}>
+          {room?.name}
+        </Heading>
+        <Box display={'flex'} flexDirection={'column'} minHeight={0} flex={1}>
+          <Box
+            pb={2}
+            overflowY={'auto'}
+            flex={1}
+            display={'flex'}
+            flexDirection={'column'}
+            minHeight={0}
+          >
+            <Chats />
+          </Box>
+          <Box>{renderCreateChatMessageForm()}</Box>
         </Box>
-        <Box>{renderCreateChatMessageForm()}</Box>
       </Box>
     </>
   )
