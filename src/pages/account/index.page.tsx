@@ -39,9 +39,9 @@ const CreateRoom = () => {
     startLoading()
     try {
       const db = roomsDatabaseCollectionRef()
-      await addDoc(db, input)
+      const docRef = await addDoc(db, input)
       reset()
-      await push((path) => path.rooms.$url())
+      await push((path) => path.rooms._room_uid(docRef.id).chat.$url())
     } catch (e) {
       __DEV__ && console.log(e)
     } finally {
