@@ -60,6 +60,7 @@ const signUp = async () => {
 ```
 
 ### 確認メール送信
+
 https://firebase.google.com/docs/auth/web/manage-users?hl=ja#send_a_user_a_verification_email
 
 ```tsx
@@ -93,7 +94,6 @@ export const sendEmailVerification = (
     })()
   })
 }
-
 ```
 
 ### サインイン
